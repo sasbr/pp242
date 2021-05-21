@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+
+<h1 th:align="center">User Data</h1>
+
+<table th:align="center" border="1">
+    <tr th:align="center">
+        <th th:width="60">ID</th>
+        <th th:width="120">First Name</th>
+        <th th:width="120">Last Name</th>
+        <th th:width="120">Tel Number</th>
+        <th th:width="60">Delete</th>
+        <th th:width="60">Back</th>
+    </tr>
+
+    <tr th:align="center">
+        <td th:utext="${user.id}">ID</td>
+        <td th:utext="${user.firstName}">First Name</td>
+        <td th:utext="${user.lastName}">Last Name</td>
+        <td th:utext="${user.telNumber}">Tel Number</td>
+        <td><a th:href="@{/deleteuser/{id}(id=${user.id})}">Delete</a></td>
+        <td><a th:href="@{/}">Back</a></td>
+    </tr>
+</table>
+
+<h1 th:align="center">Edit User</h1>
+
+<form th:action="@{'/edituser'}" method="post" th:align="center">
+
+    <h3>ID</h3>
+    <input th:name="id" th:type="text" th:value="${user.id}" readonly="true"><br>
+    <h3>New First Name</h3>
+    <input th:name="firstname" th:type="text" th:value="${user.firstName}"><br>
+    <h3>New Last Name</h3>
+    <input th:name="lastname" th:type="text" th:value="${user.lastName}"><br>
+    <h3>New Tel Number</h3>
+    <input th:name="telnumber" th:type="number" th:value="${user.telNumber}"><br><br>
+    <input th:type="submit" value="Save User">
+
+</form>
+
+</body>
+</html>
