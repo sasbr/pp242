@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+<body>
+
+<form th:align="center" th:action="@{'/logout'}" method="POST">
+    <button class="btn btn-danger btn-center">Logout</button>
+</form>
+
+<h1 th:align="center">Add User</h1>
+
+<form th:action="@{'/admin/create'}" method="post" th:align="center">
+    <input th:name="firstname" th:type="text" th:placeholder="First_Name"><br><br>
+    <input th:name="lastname" th:type="text" th:placeholder="Last_Name"><br><br>
+    <input th:name="telnumber" th:type="number" th:placeholder="Tel_Number"><br><br>
+    <input th:name="username" th:type="text" th:placeholder="User_Name"><br><br>
+    <input th:name="password" th:type="text" th:placeholder="Password"><br><br>
+
+    <input th:type="checkbox" th:id="adminId"  th:name="adm" th:value="ROLE_ADMIN">
+    <label th:for="adminId">Admin</label>
+
+    <input th:type="checkbox" th:id="userId"  th:name="usr" th:value="ROLE_USER">
+    <label th:for="userId">User</label>
+
+    <br><br>
+    <input th:type="submit" value="Create User">
+</form>
+
+<h1 th:align="center">User List</h1>
+
+<table th:align="center" border="1">
+    <tr th:align="center">
+        <th th:width="60">ID</th>
+        <th th:width="120">First Name</th>
+        <th th:width="120">Last Name</th>
+        <th th:width="120">Tel Number</th>
+        <th th:width="120">User Name</th>
+        <th th:width="120">Password</th>
+        <th th:width="60">Role</th>
+        <th th:width="60">Details</th>
+    </tr>
+
+    <tr th:align="center" th:each="user : ${users}">
+        <td th:utext="${user.id}">ID</td>
+        <td th:utext="${user.firstName}">First Name</td>
+        <td th:utext="${user.lastName}">Last Name</td>
+        <td th:utext="${user.telNumber}">Tel Number</td>
+        <td th:utext="${user.userName}">User Name</td>
+        <td th:utext="${user.password}">Password</td>
+        <td th:utext="${user.roles}">Role</td>
+        <td><a th:href="@{/admin/user/{id}(id=${user.id})}">Details</a></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

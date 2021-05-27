@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to SpringSecurityApp</title>
+</head>
+
+<body>
+<form th:align="center" th:action="@{'/login'}" method="post">
+
+    <br>
+    <br>
+
+    <label>Username: <input type="text" name="username" class="form-control" required></label>
+
+    <br>
+    <br>
+
+    <label>Password: <input type="password" name="password" class="form-control" required></label>
+
+    <br>
+    <br>
+
+    <button class="btn btn-success float-right">Sign In</button>
+
+</form>
+
+</body>
+
+</html>
