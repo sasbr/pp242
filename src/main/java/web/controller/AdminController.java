@@ -84,7 +84,6 @@ public class AdminController {
             if (adm != null) {
                 roles.add(new Role(1L, adm));
             }
-
             if (usr != null) {
                 roles.add(new Role(2L, usr));
             }

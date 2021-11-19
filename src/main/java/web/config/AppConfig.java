@@ -23,48 +23,47 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class AppConfig {
 
-   @Autowired
-   private Environment env;
+    @Autowired
+    private Environment env;
 
-   @Bean
-   public DataSource getDataSource() {
-      DriverManagerDataSource dataSource = new DriverManagerDataSource();
-      dataSource.setDriverClassName(env.getProperty("db.driver"));
-      dataSource.setUrl(env.getProperty("db.url"));
-      dataSource.setUsername(env.getProperty("db.username"));
-      dataSource.setPassword(env.getProperty("db.password"));
-      return dataSource;
-   }
+    @Bean
+    public DataSource getDataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("db.driver"));
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
+        return dataSource;
+    }
 
-   @Bean
-   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-      LocalContainerEntityManagerFactoryBean em
-              = new LocalContainerEntityManagerFactoryBean();
-      em.setDataSource(getDataSource());
-      em.setPackagesToScan("web.model");
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em
+                = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(getDataSource());
+        em.setPackagesToScan("web.model");
 
-      JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-      em.setJpaVendorAdapter(vendorAdapter);
-      Properties props = new Properties();
-      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        Properties props = new Properties();
+        props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        em.setJpaProperties(props);
 
-      em.setJpaProperties(props);
+        return em;
+    }
 
-      return em;
-   }
+    @Bean
+    public JpaVendorAdapter getJpaVendorAdapter() {
+        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+        return jpaVendorAdapter;
+    }
 
-   @Bean
-   public JpaVendorAdapter getJpaVendorAdapter() {
-      JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-      return jpaVendorAdapter;
-   }
+    @Bean
+    public PlatformTransactionManager getTransactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
-   @Bean
-   public PlatformTransactionManager getTransactionManager() {
-      JpaTransactionManager transactionManager = new JpaTransactionManager();
-      transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-
-      return transactionManager;
-   }
+        return transactionManager;
+    }
 }

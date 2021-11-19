@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService{
     public void createUser(String firstName, String lastName, int telNumber, String userName, String password, Set<Role> roles) {
         userDao.createUser(firstName, lastName, telNumber, userName, password, roles);
     }
-
     @Override
     @Transactional
     public User readUserById(long id) {
